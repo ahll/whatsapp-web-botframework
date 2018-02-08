@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/assets/js/main.js"></script>  
+    </head>
+    <body>
+        <script>
+            window.onload=function(){
+
+                directLine.postActivity({
+                        from: { id: 'myUserId', name: 'myUserName' }, // required (from.name is optional)
+                        type: 'message',
+                        text: 'hola'
+                    }).subscribe(
+                id => console.log("Posted activity, assigned ID ", id),
+                                error => console.log("Error posting activity", error)
+                        );
+            };
+        </script>
+        <div>TODO write content</div>
+    </body>
+
+</html>

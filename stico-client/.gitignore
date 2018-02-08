@@ -1,0 +1,8 @@
+*.jar
+*.war
+*.class
+/target/
+/node_modules/
+
+.vscode/
+/nbproject/private/
