@@ -10,14 +10,16 @@
         <script>
             window.onload=function(){
 
-                directLine.postActivity({
-                        from: { id: 'myUserId', name: 'myUserName' }, // required (from.name is optional)
-                        type: 'message',
-                        text: 'hola'
-                    }).subscribe(
-                id => console.log("Posted activity, assigned ID ", id),
-                                error => console.log("Error posting activity", error)
-                        );
+                var bot = new Bot("87a_i8CGCL8.cwA.lm0.I2UDp1B3tiAYojYBxMSMufnY_Qhl72ex2sarUL8qib0", "ButlerPre");
+                bot.subscribeChannel("ahll", function(username, text){
+                   // alert(username+":" + text);
+                });
+                bot.send("ahll", "hola");
+                
+                bot.subscribeChannel("abc", function(username, text){
+                    alert(username+":" + text);
+                });
+                bot.send("abc", "hola");
             };
         </script>
         <div>TODO write content</div>
