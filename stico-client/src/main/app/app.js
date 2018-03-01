@@ -35,7 +35,7 @@ var processMessage = function () {
 
     var element = messageQueue.tryGetElement();
     
-    if (element.name) {
+    if (element && element.name) {
         console.log(element);
         var userName = replayUserMap[element.name];
         var chat = namedChatMap[userName];
@@ -44,8 +44,10 @@ var processMessage = function () {
             whatsapp.selectChat(chat);
             whatsapp.sendMessage(chat, element.item);
         }
+        //make sure to read all message
+        setTimeout(processMessage, 3000);
+        return;
     }
-    element = messageQueue.tryGetElement();
 
     var chats = whatsapp.getUnreadChats();
 
