@@ -15,23 +15,24 @@ class Bot {
             });
 
             this.userChannelMap[userName].activity$
-                    .filter(activity => activity.from.name === this.name)
+                    .filter(activity => activity.from.name === this.name  )
                     .subscribe(
                             activity => {
                                 console.log("received activity ", activity);
-                        
-                               if(activity.text){
-                                callback(activity.text);
-                               } else {
-                                 callback(JSON.stringify(activity.attachments));
-                               }
+                 
+                                    if(activity.text){
+                                     callback(activity.text, activity.replyToId);
+                                    } else {
+                                      callback(JSON.stringify(activity.attachments, activity.replyToId));
+                                    }
+                              
                             }
                     );
 
         }
     }
     
-    send(userName, text){
+    send(userName, text, callBack){
         
         var directLine = this.userChannelMap[userName];
         
@@ -44,10 +45,11 @@ class Bot {
          from: { id: userName, name: userName }, // required (from.name is optional)
              type: 'message',
              text: text
+             
           }).subscribe(
                   
                 id => {
-                    console.log("Posted activity, assigned ID ", id);
+                    callBack(id);
                 },
                 
                 error => console.log("Error posting activity", error)

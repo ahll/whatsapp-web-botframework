@@ -10,16 +10,12 @@
         <script>
             window.onload=function(){
 
-                var bot = new Bot("87a_i8CGCL8.cwA.lm0.I2UDp1B3tiAYojYBxMSMufnY_Qhl72ex2sarUL8qib0", "ButlerPre");
-                bot.subscribeChannel("ahll", function(username, text){
-                   // alert(username+":" + text);
+                bot = new Bot("87a_i8CGCL8.cwA.lm0.I2UDp1B3tiAYojYBxMSMufnY_Qhl72ex2sarUL8qib0", "ButlerPre");
+                bot.subscribeChannel("ahll", function(text){
+                    alert(text);
                 });
                 bot.send("ahll", "hola");
                 
-                bot.subscribeChannel("abc", function(username, text){
-                    alert(username+":" + text);
-                });
-                bot.send("abc", "hola");
             };
         </script>
         <div>TODO write content</div>
