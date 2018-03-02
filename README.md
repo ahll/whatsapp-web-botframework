@@ -37,7 +37,9 @@ var Bot = require("./whatsapp/Bot");
 var Whatsapp = require("./whatsapp/Whatsapp");
 var Timer = require("./whatsapp/Timer");
 var MessageQueue = require("./whatsapp/MessageQueue");
-var bot = new Bot("87a_i8CGCL8.cwA.lm0.I2UDp1B3tiAYojYBxMSMufnY_Qhl72ex2sarUL8qib0", "ButlerPre");
+
+//could use our bot for testing or change your bot of bot framework
+var bot = new Bot("87a_i8CGCL8.cwA.lm0.I2UDp1B3tiAYojYBxMSMufnY_Qhl72ex2sarUL8qib0", "ButlerPre"); 
 var whatsapp = new Whatsapp();
 var messageQueue = new MessageQueue();
 
@@ -162,5 +164,5 @@ processMessage();
 
 
 
-
-
+# The next thing
+Do a bot as middleware, that could send message cross platform. For example, facebook messager to whatsapp, whatsapp to skype,  and so on
