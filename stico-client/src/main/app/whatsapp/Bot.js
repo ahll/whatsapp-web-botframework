@@ -9,17 +9,19 @@ class Bot {
     }
 
     subscribeChannel(userName, callback) {
-        if (!this.userChannelMap[userName]) {
+        if (userName && !this.userChannelMap[userName]) {
             this.userChannelMap[userName] = new DirectLine({
                 secret: "87a_i8CGCL8.cwA.lm0.I2UDp1B3tiAYojYBxMSMufnY_Qhl72ex2sarUL8qib0"
             });
 
+            var directLine = this.userChannelMap[userName];
             this.userChannelMap[userName].activity$
-                    .filter(activity => activity.from.name === this.name  )
+                    .filter(activity => activity.from.name === this.name
+                        &&    activity.conversation.id === directLine.conversationId 
+                    )
                     .subscribe(
+                    
                             activity => {
-                                console.log("received activity ", activity);
-                 
                                     if(activity.text){
                                      callback(activity.text, activity.replyToId);
                                     } else {

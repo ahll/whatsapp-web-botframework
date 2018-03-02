@@ -11,16 +11,14 @@ class MessageQueue {
     }
     
     add(name, item){
+        console.log(name + ":" + item);
         this.namedMessageQueueMap[name].push(item);
     }
     
-    first(name){
-       var item = null; 
-       if(this.namedMessageQueueMap[name].length >0){
-            item = this.namedMessageQueueMap[name][0];
-            this.namedMessageQueueMap[name].shift();
-       }
-       return item;
+    all(name){
+       var array = this.namedMessageQueueMap[name].slice(); 
+       this.namedMessageQueueMap[name]=[];
+       return array;
     }
     
     tryGetElement(){
@@ -28,7 +26,7 @@ class MessageQueue {
            if(this.namedMessageQueueMap[key].length>0){
                return {
                    name : key,
-                   item : this.first(key)
+                   item : this.all(key)
                };
            }
         }

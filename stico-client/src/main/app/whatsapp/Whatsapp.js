@@ -37,6 +37,24 @@ class Whatsapp {
         };
     }
 
+    randomChat(chatList){
+        return chatList[Math.floor((Math.random() * chatList.length))];
+    }
+
+    changeChat(){
+       var chats = this.getAllChats();
+       var chat = this.randomChat(chats);
+       
+       while(chat.querySelector('span.OUeyt')){
+          chat = this.randomChat(chats);
+       }
+       this.selectChat(chat);
+    }
+    
+    lockChat(){
+        document.getElementById('main').innerHTML='';
+    }
+    
     getUnreadChats() {
         var unreadchats = [];
         var chats = this.getElement("chats");
@@ -113,7 +131,6 @@ class Whatsapp {
     }
 
     selectChat(chat) {
-        
         this.eventFire(chat.firstChild.firstChild, 'mousedown');
     }
 
