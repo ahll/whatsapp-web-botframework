@@ -1,16 +1,16 @@
 # whatsapp-web-botframework
 A test bot, that connected whatsapp web to microsoft botframework
 
-##Installation
+## Installation
 Git clone
 Npm install
 
-##Compilation
+## Compilation
 
 gulp clean
 gulp build
 
-##Ejecution
+## Ejecution
 
 1.install disable content security plugin in chrome
 
@@ -21,7 +21,17 @@ https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagomm
 3. copy the content of  main.js in the target/web/assets into  web.whatsapp.com console, if has error of socket, refresh the page 
 to disabel the content security head of http.
 
-##Architecture
+## Architecture
+
+Bot.js	the interface of botframework directline
+MessageQueue.js	name message queue
+Timer.js	timer to put execution in sequence
+Whatsapp.js  web whatsapp interface
+App.js application
+
+
+
+
 
 
 
