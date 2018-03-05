@@ -25,7 +25,7 @@ class Bot {
                                     if(activity.text){
                                      callback(activity.text, activity.replyToId);
                                     } else {
-                                      callback(JSON.stringify(activity.attachments, activity.replyToId));
+                                      callback(JSON.stringify(activity.attachments), activity.replyToId);
                                     }
                               
                             }

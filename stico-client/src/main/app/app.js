@@ -25,9 +25,8 @@ var randomChat = function (chatList) {
 };
 
 
-chats.forEach(function (element) {
+var registerChat = function (element) {
     var userName = whatsapp.getChatName(element);
-    alert(userName);
     bot.subscribeChannel(userName, function (text, replayId) {
         if (replayId) {
             console.log(replayId + "get message: " + text);
@@ -36,7 +35,9 @@ chats.forEach(function (element) {
         }
     });
     namedChatMap[userName] = element;
-});
+};
+
+chats.forEach(registerChat);
 
 var sendMessage = function () {
     var element = messageQueue.tryGetElement();
@@ -74,7 +75,13 @@ var readMessage = function () {
 
     var chats = whatsapp.getUnreadChats();
     if (chats.length > 0) {
+        
         var chat = randomChat(chats);
+        var userName = whatsapp.getChatName(chat);
+        
+        if(!namedChatMap[userName]){
+            registerChat(chat);
+        }
         
         new Timer(
                 function () {
@@ -83,7 +90,7 @@ var readMessage = function () {
         ).waitThen(
                 function () {
 
-                    var userName = whatsapp.getChatName(chat);
+                   
                     var lastMessage = whatsapp.getLastMsg();
                     if (lastMessage && userSentMessage[userName] !== lastMessage) {
                         console.log("sending to bot " + lastMessage);
