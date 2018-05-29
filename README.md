@@ -18,13 +18,13 @@ https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagomm
 
 2. disable content security
 
-3. copy the content of  main.js in the target/web/assets into  web.whatsapp.com console, if has error of socket, refresh the page 
-to disabel the content security head of http.
+3. copy the content of  main.js in the target/web/assets into  web.whatsapp.com console. 
+If has error of socket, refresh the page, and retry 1 and 2.
 
 ## Architecture
 
 Bot.js	the interface of botframework directline
-MessageQueue.js	name message queue
+MessageQueue.js	named message queue
 Timer.js	timer to put execution in sequence
 Whatsapp.js  web whatsapp interface
 App.js application
