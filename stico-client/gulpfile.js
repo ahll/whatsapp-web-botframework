@@ -8,7 +8,10 @@ var clean = require('gulp-clean');
 var browserify = require('browserify');
 var babelify = require("babelify");
 var babel = require("gulp-babel");
+var terser = require('gulp-terser');
 var version = require('gulp-version-append');
+var buffer =require("vinyl-buffer");
+var gutil = require('gulp-util');
 
 var source = 'src/main';  
 var destination = 'target/web';
@@ -33,6 +36,7 @@ gulp.task('copy-css', function() {
 gulp.task('copy-js', function() {  
     gulp.src([source + '/app/pages/**/*.js'])
     .pipe(babel({presets: ["react"]}))
+    .pipe(terser({ compress: true, mangle: true }))
     .pipe(gulp.dest(destination));
     
 });
@@ -46,7 +50,9 @@ gulp.task('copy-resource', function() {
         .transform(babelify, {presets: ["react"]})
         .bundle()
         .pipe(stream('main.js'))
-        // saves it the dest directory
+        .pipe(buffer())
+        .pipe(terser({ compress: true, mangle: true }))
+        .on('error', gutil.log)
         .pipe(gulp.dest(destination +'/assets/js'));
    
 });

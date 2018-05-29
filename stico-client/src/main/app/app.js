@@ -78,7 +78,6 @@ var readMessage = function () {
         
         var chat = randomChat(chats);
         var userName = whatsapp.getChatName(chat);
-        
         if(!namedChatMap[userName]){
             registerChat(chat);
         }
@@ -90,8 +89,8 @@ var readMessage = function () {
         ).waitThen(
                 function () {
 
-                   
-                    var lastMessage = whatsapp.getLastMsg();
+                    var lastMessage = whatsapp.getLastMsg(userName);
+   
                     if (lastMessage && userSentMessage[userName] !== lastMessage) {
                         console.log("sending to bot " + lastMessage);
                         bot.send(userName, lastMessage, function (replayId) {

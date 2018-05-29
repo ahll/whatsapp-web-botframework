@@ -37,24 +37,24 @@ class Whatsapp {
         };
     }
 
-    randomChat(chatList){
+    randomChat(chatList) {
         return chatList[Math.floor((Math.random() * chatList.length))];
     }
 
-    changeChat(){
-       var chats = this.getAllChats();
-       var chat = this.randomChat(chats);
-       
-       while(chat.querySelector('span.OUeyt')){
-          chat = this.randomChat(chats);
-       }
-       this.selectChat(chat);
+    changeChat() {
+        var chats = this.getAllChats();
+        var chat = this.randomChat(chats);
+
+        while (chat.querySelector('span.OUeyt')) {
+            chat = this.randomChat(chats);
+        }
+        this.selectChat(chat);
     }
-    
-    lockChat(){
-        document.getElementById('main').innerHTML='';
+
+    lockChat() {
+        document.getElementById('main').innerHTML = '';
     }
-    
+
     getUnreadChats() {
         var unreadchats = [];
         var chats = this.getElement("chats");
@@ -80,7 +80,7 @@ class Whatsapp {
         }
         return unreadchats;
     }
-    
+
     getAllChats() {
         var chats = this.getElement("chats");
         if (chats) {
@@ -93,10 +93,10 @@ class Whatsapp {
                 if (!icons) {
                     continue;
                 }
-                
+
             }
         }
-        
+
         return chats;
     }
 
@@ -131,29 +131,27 @@ class Whatsapp {
     }
 
     selectChat(chat) {
-        this.eventFire(chat.firstChild.firstChild, 'mousedown');
+        if (chat) {
+            this.eventFire(chat.firstChild.firstChild, 'mousedown');
+        }
     }
 
     getChatName(chat) {
-        return this.getElement("chat_title", chat).title;
+        var messages = chat.querySelectorAll('span[title]');
+        return messages[0].title;
     }
-    getLastMsg() {
-        var messages = document.querySelectorAll('.msg');
+    getLastMsg(userName) {
+
+        var messages = document.querySelectorAll('div[data-pre-plain-text*="'+userName+'"]');
         var pos = messages.length - 1;
 
-        while (messages[pos] && (messages[pos].classList.contains('msg-system') || messages[pos].querySelector('.message-out'))) {
-            pos--;
-            if (pos <= -1) {
-                return null;
-            }
-            
+        if (pos >= 0) {
+            return messages[pos].querySelector('span[dir="ltr"]').innerText;
         }
-        if (messages[pos] && messages[pos].querySelector('.selectable-text')) {
-            return messages[pos].querySelector('.selectable-text').innerText;
-        } else {
-            return null;
-        }
+
+        return null;
+
     }
 }
 
-module.exports=Whatsapp;
+module.exports = Whatsapp;
