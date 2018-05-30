@@ -1,5 +1,6 @@
 var Bot = require("./whatsapp/Bot");
 var Whatsapp = require("./whatsapp/Whatsapp");
+var Activity = require("./whatsapp/Activity");
 var Timer = require("./whatsapp/Timer");
 var MessageQueue = require("./whatsapp/MessageQueue");
 var bot = new Bot("87a_i8CGCL8.cwA.lm0.I2UDp1B3tiAYojYBxMSMufnY_Qhl72ex2sarUL8qib0", "ButlerPre");
@@ -23,7 +24,6 @@ var chats = whatsapp.getAllChats();
 var randomChat = function (chatList) {
     return chatList[Math.floor((Math.random() * chatList.length))];
 };
-
 
 var registerChat = function (element) {
     var userName = whatsapp.getChatName(element);
@@ -53,16 +53,27 @@ var sendMessage = function () {
         ).waitThen(function () {
 
         }, 1000);
-        element.item.forEach(function (text) {
-            timer.waitThen(
-                    function () {
-                        console.log(userName + ": recive from bot :" + text);
-                        if(userName) {
-                            whatsapp.sendMessage(chat, text);
+
+        if(userName){
+            
+            var messageProcess = function(message){ 
+                            whatsapp.sendMessage(chat,message);
+                          };
+        
+            var itemProcess = function (botActitity) {
+                timer.waitThen(
+                        function () {
+                            var activity = new Activity(botActitity);
+                            var messages = activity.activityToText();
+                            console.log(userName + ": recive from bot :" +JSON.stringify(messages) );
+                            messages.forEach(messageProcess);
+
                         }
-                    }
-            , 500);
-        });
+                , 500);
+            };
+        
+            element.item.forEach(itemProcess);
+        }
         timer.waitThen(readMessage, 500)
                 .do();
     } else {

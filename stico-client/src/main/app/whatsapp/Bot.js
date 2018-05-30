@@ -22,11 +22,9 @@ class Bot {
                     .subscribe(
                     
                             activity => {
-                                    if(activity.text){
-                                     callback(activity.text, activity.replyToId);
-                                    } else {
-                                      callback(JSON.stringify(activity.attachments), activity.replyToId);
-                                    }
+
+                                   callback(activity, activity.replyToId);
+                                   
                               
                             }
                     );
